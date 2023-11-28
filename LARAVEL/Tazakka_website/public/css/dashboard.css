@@ -1,0 +1,33 @@
+:root {
+    --offcanvas-width: 270px;
+    --topNavbarHeigth: 56px;
+}
+.sidebar-nav {
+    width: var(--offcanvas-width) !important;
+}
+
+@media (min-width: 992px) {
+    body {
+        overflow: auto !important;
+    }
+    .offcanvas-backdrop::before {
+        display: none;
+    }
+    main {
+        margin-left: var(--offcanvas-width);
+    }
+    .sidebar-nav {
+        transform: none !important;
+        visibility: visible !important;
+        top: var(--topNavbarHeigth) !important;
+        height: calc(100%- var(--topNavbarHeigth)) !important;
+    }
+}
+
+.profile-section {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-left: 10px;
+}

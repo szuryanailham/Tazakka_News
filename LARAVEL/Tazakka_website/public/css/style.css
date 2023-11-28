@@ -1,0 +1,50 @@
+.typing-demo {
+    width: 50%;
+    animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: monospace;
+    font-size: 1rem;
+    margin: 7px 5px;
+    position: relative; /* Tambahkan position relative */
+}
+
+/* Atur border pada pseudo-element setelah */
+.typing-demo::after {
+    content: ""; /* Tambahkan konten kosong pada pseudo-element */
+    display: inline-block; /* Membuat pseudo-element inline-block */
+    width: 3px; /* Lebar border */
+    height: 1rem; /* Tinggi sesuai dengan font-size */
+    background-color: transparent; /* Warna border */
+    position: absolute; /* Posisi absolute untuk mengontrol posisi border */
+    top: 0;
+    right: 0; /* Border diletakkan di sebelah kanan teks */
+    animation: blink 0.5s step-end infinite alternate; /* Animasi border */
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+}
+
+@keyframes blink {
+    50%,
+    to {
+        background-color: transparent; /* Hapus border saat mencapai akhir */
+    }
+}
+.social-media {
+    margin-top: 50px;
+}
+.populer_card {
+    width: 13rem;
+}
+
+@media (max-width: 575.98px) {
+    .populer_card {
+        width: 100%;
+        padding: 10px;
+        margin: auto;
+    }
+}
