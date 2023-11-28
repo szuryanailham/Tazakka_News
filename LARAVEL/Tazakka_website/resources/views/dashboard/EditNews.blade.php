@@ -3,7 +3,7 @@
 {{-- FORM MAKE NEWS --}}
 <div class="row">
     <div class="col-lg-8">
-        <form method="POST" action="/dashboard/settingsNews" enctype="multipart/form-data">
+        <form method="POST" action="/dashboard/news/{{$news->slug}}" enctype="multipart/form-data">
             @method('put')
             @csrf
             {{-- news title input --}}
@@ -38,19 +38,16 @@
               @if ($news->image)
               <img src="{{ asset('storage/'.$news->image) }}" class="img-preview col-sm-5 mb-3 d-block" alt="Image Preview">
           @else
-              <img src="https://source.unsplash.com/random/300x300" class="img-preview col-sm-5 mb-3" alt="Image Preview">
+              <img  src="https://source.unsplash.com/random/300x300" class="img-preview col-sm-5 mb-3" alt="Image Preview">
           @endif
-      
-          @error('image')
-              <div id="name" class="invalid-feedback">
-                  {{ $message }}
-              </div>
-          @enderror
               <div class="mb-3">
                 <label for="image" class="form-label inline-block">Image Upload</label>
-                <input id="image" onchange="previewImage(event)" name="image" class="form-control @error('image') is-invalid @enderror" type="file" id="image">
-            
-             
+                <input  onchange="previewImage(event)" name="image" class="form-control @error('image') is-invalid @enderror" type="file" id="image">
+                @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             
               {{-- content of News  --}}
@@ -79,7 +76,8 @@
 
 // {{--END FORM MAKE NEWS --}}
     const previewImage = (event)=>{
-      const image = document.querySelector('.image-preview');
+      const image = document.querySelector('.img-preview');
+      console.log(image)
       image.style.display = 'block'
       image.src = URL.createObjectURL(event.target.files[0]);
       image.onload = function() {

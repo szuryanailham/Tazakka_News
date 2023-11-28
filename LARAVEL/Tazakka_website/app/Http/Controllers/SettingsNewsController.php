@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\User;
+// use Clockwork\Storage\Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
@@ -108,8 +110,40 @@ class SettingsNewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        //
+        $rules = [
+            'title'=> 'required|max:255',
+            'slug' =>'required|unique:news',
+            'category_id' => 'required',
+            'image'=>'image|file|dimensions:min_width=300,min_height=300|max:2000',
+            'body' =>'required'
+        ];
+        // cek bagian slug
+        if($request->slug != $news->slug){
+            $rules['slug'] = 'required|unique:news';
+        };
+        // validasi request image
+        $validatedData = $request->validate($rules);
+
+        // hapus image lama
+        if($request->file('image')){
+            if($request->oldImage){
+                Storage::delete($news->image);
+            }    
+            $validatedData['image'] = $request->file('image')->store('post-images');  
+        }
+        
+        $validatedData['user_id'] = auth()->user()->id;
+
+         // mengisi element body database
+         $validatedData['kutipan'] = Str::limit(strip_tags($request->body),200,'...');
+        
+        //  querry update data
+        News::where('id',$news->id)->update($validatedData);
+
+        return redirect('/dashboard')->with('success','Your News has been updated');
+
     }
+
 
     /**
      * Remove the specified resource from storage.
