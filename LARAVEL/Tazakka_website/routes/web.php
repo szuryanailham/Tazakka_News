@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\CategorySettingsController; 
 use App\Http\Controllers\SettingsNewsController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\NewsController;
@@ -61,10 +63,16 @@ Route::get('/author/{author:username}',function(User $author){
     Route::resource('/dashboard/news',SettingsNewsController::class)->middleware('auth');
 
 // SHOW ALL CATEGORY
-    Route::get('/dashboard/category',[SettingsNewsController::class,'showCategory'])->middleware('auth');
+    Route::get('/dashboard/categories',[SettingsNewsController::class,'showCategory'])->middleware('auth');
 
 // SHOW ADD NEWS PAGE
     Route::get('/dashboard/addNews',[SettingsNewsController::class,'addNews'])->middleware('auth');
 
 //  SLUG ROUTE
     Route::get('/dashboard/checkSlug',[SettingsNewsController::class,'checkSlug'])->middleware('auth');
+
+//  ADMINISTRASION
+    Route::get('/dashboard/admin',[SettingsNewsController::class,'adminSettings'])->middleware('auth');
+
+//  Settings CATEGORIES
+    Route::resource('/dashboard/category',CategorySettingsController::class)->middleware('auth');

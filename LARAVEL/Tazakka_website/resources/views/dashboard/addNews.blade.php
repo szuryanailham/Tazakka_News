@@ -35,8 +35,8 @@
                   </select> 
               </div>
               {{-- aploud image  --}}
+              <img class="image-preview col-sm-5 mb-3" alt="image preview">
               <div class="mb-3">
-                <img class="image-preview col-sm-5 mb-3" alt="image preview">
                 <label for="image" class="form-label">Image aploud</label>
                 <input id="image" onchange="previewImage(event)" name="image" class="form-control @error('image') is-invalid @enderror" type="file" id="image">
                 @error('image')

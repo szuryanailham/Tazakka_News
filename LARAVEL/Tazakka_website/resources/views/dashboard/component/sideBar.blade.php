@@ -27,7 +27,7 @@
        
         {{-- Category --}}
         <li>
-          <a href="/dashboard/category" class="nav-link px-3 active">
+          <a href="/dashboard/categories" class="nav-link px-3 active">
             <span class="me-2"><i class="bi bi-bookmarks"></i></span>
             <span>Category</span>
           </a>
@@ -56,6 +56,22 @@
             <span>add news</span>
           </a>
         </li>
+         {{-- administrator --}}
+         @can('admin')
+         <li>
+          <a href="/dashboard/admin" class="nav-link px-3">
+            <span class="me-2"><i class="bi bi-card-list"></i></span>
+            <span>Administrasi</span>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/dashboard/category" class="nav-link px-3">
+            <span class="me-2"><i class="bi bi-bookmark-plus"></i></span>
+            <span>Settings Category</span>
+          </a>
+        </li>
+         @endcan
         <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
         <li>
           <div class="text-muted small fw-bold text-uppercase px-3 mb-3">

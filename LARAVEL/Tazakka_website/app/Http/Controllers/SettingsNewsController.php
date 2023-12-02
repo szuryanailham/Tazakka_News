@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class SettingsNewsController extends Controller
 {
@@ -98,6 +99,13 @@ class SettingsNewsController extends Controller
      */
     public function edit(News $news)
     {
+        if (auth()->user()->id !== $news->id) {
+            if (! Gate::allows('admin')) {
+                abort(403);
+            }
+        }
+  
+     
        return view('dashboard.editNews',[
             'title'=> 'edit your News',
             'news'=>$news,
@@ -110,6 +118,7 @@ class SettingsNewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
+
         $rules = [
             'title'=> 'required|max:255',
             'slug' =>'required|unique:news',
@@ -157,6 +166,19 @@ class SettingsNewsController extends Controller
     public function checkSlug(Request $request){
         $slug = SlugService::createSlug(News::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
+    }
+
+    // function function adminSetings
+    public function adminSettings(){
+        $this->authorize('admin');
+        return view('dashboard.adminSettings',[
+            'title'=>'settings Admin',
+            'news'=>News::latest()->get(),
+        ]);
+    }
+
+    public function updateStatus(Request $request){
+       return $request;
     }
 
 }

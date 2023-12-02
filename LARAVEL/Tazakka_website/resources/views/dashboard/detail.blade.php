@@ -1,7 +1,7 @@
 @extends('dashboard.index')
 @section('main-dashboard')
 <div class="row p-2">
-    @if (auth()->user()->id == $news->user_id)
+    @if (auth()->user()->id == $news->user_id || auth()->user()->can('admin'))
     <div class="col-lg-8 offset-lg-2 mb-2 d-flex">
         <a href="/dashboard/news/addNews" data-toggle="tooltip" title="edit" class="btn btn-outline-success"><i class="bi bi-pencil-square"></i>Create</a>
         <a href="/dashboard/news/{{$news->slug}}/edit" data-toggle="tooltip" title="edit" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Update</a>

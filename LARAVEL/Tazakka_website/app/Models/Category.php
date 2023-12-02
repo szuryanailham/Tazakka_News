@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-
+    
+    protected $guarded = ["id"];
     public function news(){
         return $this->hasMany(News::class);
+    }
+
+    public function getRouteKeyName(){
+        return 'slug';
     }
 }
