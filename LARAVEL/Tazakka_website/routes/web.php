@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/',[NewsController::class,'index']);
 
 Route::get('/about', function () {
     return view('/about');

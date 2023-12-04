@@ -53,7 +53,10 @@ class CategorySettingsController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        // mengarahkan ke edit
+        return view('dashboard.CategoryEdit',[
+            'category'=>$category
+        ]);
     }
 
     /**
@@ -61,8 +64,26 @@ class CategorySettingsController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        // Validasi data
+        $rules = [
+            'name' => 'required|max:255',
+            'slug' => 'required|unique:categories,slug,' . $category->id
+        ];
+    
+        // Cek apakah slug-nya sama
+        if ($request->slug != $category->slug) {
+            $rules['slug'] = 'required|unique:categories,slug';
+        }
+    
+        // Kumpulkan dalam data yang sudah divalidasi
+        $validatedData = $request->validate($rules);
+    
+        // Subquery UPDATE
+        Category::where('id', $category->id)->update($validatedData);
+    
+        return redirect('/dashboard/category')->with('success', 'Category has been updated');
     }
+    
 
     /**
      * Remove the specified resource from storage.
