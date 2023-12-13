@@ -1,0 +1,15 @@
+/* Your CSS file */
+
+/* Import Tailwind CSS base, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Fonts or other external styles after Tailwind CSS */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+
+/* Apply styles to specific elements using regular CSS syntax */
+.nav-list li {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
